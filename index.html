@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Spin & Win Paisa</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      background: #f5f5f5;
+      padding: 20px;
+    }
+    h1 {
+      color: #2196f3;
+    }
+    #wheel-container {
+      position: relative;
+      width: 300px;
+      height: 300px;
+      margin: 0 auto;
+    }
+    #wheel {
+      width: 100%;
+      height: 100%;
+      border: 10px solid #4caf50;
+      border-radius: 50%;
+      background: conic-gradient(
+        #ffeb3b 0% 90deg,
+        #ffc107 90deg 180deg,
+        #8bc34a 180deg 270deg,
+        #f44336 270deg 360deg
+      );
+      position: relative;
+      transition: transform 4s ease-out;
+    }
+    #pointer {
+      width: 0;
+      height: 0;
+      border-top: 30px solid red;
+      border-left: 20px solid transparent;
+      border-right: 20px solid transparent;
+      position: absolute;
+      bottom: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+    }
+    .label {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 22px;
+      font-weight: bold;
+      color: black;
+      pointer-events: none;
+    }
+    .label span {
+      position: absolute;
+      transform-origin: center;
+    }
+    .label span:nth-child(1) {
+      transform: rotate(45deg) translateY(-120px);
+    }
+    .label span:nth-child(2) {
+      transform: rotate(135deg) translateY(-120px);
+    }
+    .label span:nth-child(3) {
+      transform: rotate(225deg) translateY(-120px);
+    }
+    .label span:nth-child(4) {
+      transform: rotate(315deg) translateY(-120px);
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+    #result, #formSection, #shareSection {
+      margin-top: 30px;
+      display: none;
+    }
+    input {
+      padding: 10px;
+      font-size: 16px;
+      margin: 5px;
+      width: 200px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎉 Spin & Win - Paisa Jeeto! 🎉</h1>
+  <div id="wheel-container">
+    <div id="wheel">
+      <div class="label">
+        <span>₹10</span>
+        <span>₹50</span>
+        <span>₹100</span>
+        <span>₹0</span>
+      </div>
+    </div>
+    <div id="pointer"></div>
+  </div>
+  <button onclick="spinWheel()">Spin Karo</button>
+
+  <div id="result"></div>
+
+  <div id="formSection">
+    <h3>Apna Naam aur Mobile Number Bharein</h3>
+    <input type="text" id="name" placeholder="Naam"><br>
+    <input type="text" id="number" placeholder="Mobile Number"><br>
+    <button onclick="showShare()">Submit</button>
+  </div>
+
+  <div id="shareSection">
+    <h3>Jeet Mubarak Ho!</h3>
+    <p>Kripya is message ko 10 doston ko WhatsApp par bhejein:</p>
+    <a id="shareBtn" target="_blank">
+      <button>WhatsApp Par Share Karein</button>
+    </a>
+  </div>
+
+  <script>
+    const wheel = document.getElementById("wheel");
+    const prizes = ["₹10", "₹50", "₹100", "₹0"];
+    let currentRotation = 0;
+
+    function spinWheel() {
+      const extraRotation = 360 * 5;
+      const randomAngle = Math.floor(Math.random() * 360);
+      const totalRotation = currentRotation + extraRotation + randomAngle;
+      currentRotation = totalRotation;
+
+      wheel.style.transform = `rotate(${totalRotation}deg)`;
+
+      setTimeout(() => {
+        const finalAngle = totalRotation % 360;
+        const index = Math.floor((360 - finalAngle + 45) % 360 / 90);
+        const prize = prizes[index];
+        document.getElementById("result").innerHTML = `<h2>🎁 Aapne Jeeta: ${prize}</h2>`;
+        document.getElementById("result").style.display = "block";
+
+        if (prize !== "₹0") {
+          document.getElementById("formSection").style.display = "block";
+        } else {
+          document.getElementById("formSection").style.display = "none";
+          document.getElementById("shareSection").style.display = "none";
+        }
+      }, 4100);
+    }
+
+    function showShare() {
+      const name = document.getElementById("name").value;
+      const number = document.getElementById("number").value;
+
+      if (!name || !number) {
+        alert("Kripya naam aur number bharein");
+        return;
+      }
+
+      const message = `Main Spin & Win game se paisa jeet gaya! Aap bhi try karo: [LINK]`;
+      const whatsappURL = `https://wa.me/?text=${encodeURIComponent(message)}`;
+      document.getElementById("shareBtn").href = whatsappURL;
+
+      document.getElementById("shareSection").style.display = "block";
+    }
+  </script>
+</body>
+</html>
+<script async="async" data-cfasync="false" src="//pl26695958.profitableratecpm.com/7af8fdc74648cf8fbb00e61913e582aa/invoke.js"></script>
+<div id="container-7af8fdc74648cf8fbb00e61913e582aa"></div>
